@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Naokori | Jual & Pasang CCTV</title>
+  <meta name="description" content="Jual dan pasang CCTV untuk rumah, toko, dan kantor. Kamera jernih, bisa dipantau lewat HP, bergaransi. Konsultasi gratis lewat WhatsApp.">
+  <style>
+    :root {
+      --accent: #0f766e;
+      --accent-dark: #0b5b55;
+      --accent-soft: #e6f4f2;
+      --bg: #fbfaf7;
+      --card: #ffffff;
+      --text: #1f2933;
+      --muted: #5f6c7b;
+      --line: #e5e2da;
+      --radius: 16px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1080px, 100% - 40px); margin-inline: auto; }
+    section { padding: 72px 0; }
+    h1, h2, h3 { line-height: 1.2; }
+    h2 { font-size: clamp(1.6rem, 3vw, 2.1rem); margin-bottom: 8px; }
+    .eyebrow {
+      display: inline-block; font-size: .8rem; font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 10px;
+    }
+    .section-intro { color: var(--muted); max-width: 580px; margin-bottom: 36px; }
+
+    /* Tombol */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 26px; border-radius: 999px; font-weight: 600;
+      border: 2px solid var(--accent); transition: .2s; cursor: pointer;
+      font-size: 1rem;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
+    .btn-ghost { background: transparent; color: var(--accent); }
+    .btn-ghost:hover { background: var(--accent-soft); }
+
+    /* Navigasi */
+    header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(251, 250, 247, .92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .logo { font-weight: 800; font-size: 1.25rem; letter-spacing: -.02em; }
+    .logo img { height: 44px; width: 44px; border-radius: 12px; object-fit: cover; display: block; }
+    .logo.no-logo img { display: none; }
+    .logo.no-logo::after {
+      content: "LOGO"; display: grid; place-items: center; width: 96px; height: 40px;
+      border: 2px dashed var(--accent); border-radius: 10px; color: var(--accent);
+      font-size: .8rem; font-weight: 700; letter-spacing: .1em;
+    }
+    nav ul { display: flex; gap: 26px; list-style: none; }
+    nav a { font-size: .95rem; color: var(--muted); font-weight: 500; }
+    nav a:hover { color: var(--accent); }
+    .nav .btn { padding: 9px 20px; font-size: .9rem; }
+
+    /* Hero */
+    .hero { padding: 80px 0 72px; }
+    .hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 48px; align-items: center; }
+    .hero h1 { font-size: clamp(2.1rem, 5vw, 3.3rem); letter-spacing: -.03em; margin-bottom: 18px; }
+    .hero h1 em { font-style: normal; color: var(--accent); }
+    .hero p.lead { font-size: 1.12rem; color: var(--muted); max-width: 520px; margin-bottom: 28px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 30px; }
+    .stats { display: flex; gap: 32px; flex-wrap: wrap; }
+    .stats strong { display: block; font-size: 1.6rem; color: var(--accent); }
+    .stats span { font-size: .88rem; color: var(--muted); }
+    .photo {
+      aspect-ratio: 4 / 5; border-radius: 28px;
+      background: linear-gradient(145deg, var(--accent) 0%, #34a89c 55%, #bfe3dd 100%);
+      display: grid; place-items: center; color: #fff;
+      font-size: .95rem; text-align: center; padding: 24px;
+      box-shadow: 0 24px 50px -20px rgba(15, 118, 110, .55);
+      overflow: hidden; position: relative;
+    }
+    .photo .cam { font-size: 4.5rem; line-height: 1; margin-bottom: 10px; display: block; }
+    .photo img {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; object-position: center 25%;
+    }
+
+    /* Strip keunggulan */
+    .strip { padding: 0; background: var(--accent); color: #fff; }
+    .strip-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; padding: 22px 0; }
+    .strip-item { font-weight: 600; font-size: .95rem; display: flex; align-items: center; gap: 10px; }
+
+    /* Produk */
+    .services { background: var(--card); border-block: 1px solid var(--line); }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .card {
+      background: var(--bg); border: 1px solid var(--line);
+      border-radius: var(--radius); padding: 28px; transition: .2s;
+      position: relative;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px -18px rgba(0,0,0,.25); }
+    .card.featured { border: 2px solid var(--accent); background: #fff; }
+    .badge {
+      position: absolute; top: -12px; right: 20px; background: var(--accent); color: #fff;
+      font-size: .75rem; font-weight: 700; padding: 4px 12px; border-radius: 999px;
+    }
+    .icon {
+      width: 48px; height: 48px; border-radius: 12px; background: var(--accent-soft);
+      display: grid; place-items: center; font-size: 1.4rem; margin-bottom: 16px;
+    }
+    .card h3 { font-size: 1.15rem; margin-bottom: 8px; }
+    .card p { color: var(--muted); font-size: .95rem; margin-bottom: 14px; }
+    .card ul { list-style: none; margin-bottom: 18px; }
+    .card li { font-size: .92rem; color: var(--text); padding-left: 22px; position: relative; margin-bottom: 4px; }
+    .card li::before { content: "\2713"; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+    .price { font-weight: 700; color: var(--accent); font-size: 1.1rem; margin-bottom: 14px; }
+    .card .btn { padding: 10px 20px; font-size: .9rem; }
+    .cat-title { font-size: 1.2rem; margin: 34px 0 16px; color: var(--accent-dark); }
+    .cat-title:first-of-type { margin-top: 0; }
+    .note { margin-top: 22px; color: var(--muted); font-size: .88rem; }
+
+    /* Merek */
+    .brands-wrap { display: flex; flex-wrap: wrap; gap: 12px; }
+    .brand {
+      background: var(--card); border: 1px solid var(--line); border-radius: 999px;
+      padding: 12px 26px; font-weight: 800; font-size: 1.05rem; letter-spacing: .02em;
+      color: var(--text); transition: .2s;
+    }
+    .brand:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+    .brand.more { background: var(--accent-soft); color: var(--accent-dark); border-color: transparent; font-weight: 600; }
+
+    .brand { font-family: inherit; cursor: pointer; }
+    .brand.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .brand-hint { margin-top: 14px; color: var(--muted); font-size: .9rem; }
+    .brand-panel { margin-top: 26px; animation: panelIn .3s ease; }
+    .brand-panel[hidden] { display: none; }
+    @keyframes panelIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    .bp-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+    .bp-head h3 { font-size: 1.25rem; }
+    .bp-close {
+      border: 1px solid var(--line); background: var(--card); color: var(--muted);
+      width: 36px; height: 36px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; line-height: 1;
+    }
+    .bp-close:hover { color: var(--accent); border-color: var(--accent); }
+    .prod { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; }
+    .prod-img { aspect-ratio: 10 / 7; background: linear-gradient(145deg, var(--accent-soft), #fff); display: grid; place-items: center; }
+    .prod-img svg, .prod-img img { width: 100%; height: 100%; object-fit: contain; padding: 14px; }
+    .prod-body { padding: 18px 20px 20px; display: flex; flex-direction: column; flex: 1; }
+    .prod-body h4 { font-size: 1.05rem; margin-bottom: 4px; }
+    .prod-tag { display: inline-block; align-self: flex-start; font-size: .75rem; font-weight: 700; color: var(--accent-dark); background: var(--accent-soft); padding: 2px 10px; border-radius: 999px; margin-bottom: 10px; }
+    .prod-body ul { list-style: none; margin-bottom: 16px; }
+    .prod-body li { font-size: .9rem; color: var(--text); padding-left: 20px; position: relative; margin-bottom: 3px; }
+    .prod-body li::before { content: "\2713"; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+    .prod-body .btn { margin-top: auto; padding: 9px 18px; font-size: .88rem; align-self: flex-start; }
+    .bp-note { margin-top: 16px; color: var(--muted); font-size: .85rem; }
+
+    /* Keunggulan */
+    .why-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .why { text-align: left; }
+    .why .icon { margin-bottom: 12px; }
+    .why h3 { font-size: 1.05rem; margin-bottom: 6px; }
+    .why p { color: var(--muted); font-size: .93rem; }
+
+    /* Cara kerja */
+    .how { background: var(--card); border-block: 1px solid var(--line); }
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; counter-reset: step; }
+    .step { position: relative; padding-top: 56px; }
+    .step::before {
+      counter-increment: step; content: counter(step);
+      position: absolute; top: 0; left: 0; width: 42px; height: 42px;
+      border-radius: 50%; background: var(--accent); color: #fff;
+      display: grid; place-items: center; font-weight: 700;
+    }
+    .step h3 { margin-bottom: 6px; }
+    .step p { color: var(--muted); font-size: .95rem; }
+
+    /* Lokasi pemasangan */
+    .works { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .work {
+      aspect-ratio: 4 / 3; border-radius: var(--radius); overflow: hidden;
+      position: relative; color: #fff; display: flex; align-items: flex-end; padding: 18px;
+      font-weight: 600;
+    }
+    .work:nth-child(1) { background: linear-gradient(135deg, #0f766e, #2dd4bf); }
+    .work:nth-child(2) { background: linear-gradient(135deg, #b45309, #fbbf24); }
+    .work:nth-child(3) { background: linear-gradient(135deg, #1d4ed8, #60a5fa); }
+    .work:nth-child(4) { background: linear-gradient(135deg, #9d174d, #f472b6); }
+    .work:nth-child(5) { background: linear-gradient(135deg, #3f3f46, #a1a1aa); }
+    .work:nth-child(6) { background: linear-gradient(135deg, #166534, #86efac); }
+    .work img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .work span { position: relative; text-shadow: 0 1px 6px rgba(0,0,0,.4); }
+
+    /* Testimoni */
+    .testi { background: var(--accent-soft); }
+    .quote { background: var(--card); border-radius: var(--radius); padding: 26px; display: flex; flex-direction: column; }
+    .quote p { margin-bottom: 18px; }
+    .who { display: flex; align-items: center; gap: 12px; margin-top: auto; }
+    .avatar {
+      width: 42px; height: 42px; border-radius: 50%; background: var(--accent);
+      color: #fff; display: grid; place-items: center; font-weight: 700;
+    }
+    .who small { display: block; color: var(--muted); }
+    .stars { color: #f59e0b; letter-spacing: 2px; margin-bottom: 10px; }
+
+    /* Slider testimoni */
+    .carousel { position: relative; }
+    .car-track {
+      display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory;
+      scroll-behavior: smooth; scrollbar-width: none; padding: 4px 2px 10px;
+    }
+    .car-track::-webkit-scrollbar { display: none; }
+    .car-track .quote, .car-track .prod { flex: 0 0 calc((100% - 40px) / 3); scroll-snap-align: start; }
+    .car-btn {
+      position: absolute; top: 50%; transform: translateY(-50%); z-index: 2;
+      width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line);
+      background: #fff; color: var(--accent); font-size: 1.7rem; line-height: 1;
+      cursor: pointer; display: grid; place-items: center; padding-bottom: 4px;
+      box-shadow: 0 8px 20px -8px rgba(0,0,0,.3); transition: .2s;
+    }
+    .car-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .car-btn.prev { left: -20px; }
+    .car-btn.next { right: -20px; }
+    .car-dots { display: flex; justify-content: center; gap: 8px; margin-top: 14px; }
+    .car-dots button {
+      width: 9px; height: 9px; border-radius: 50%; border: 0; cursor: pointer;
+      background: #b9d9d4; padding: 0; transition: .2s;
+    }
+    .car-dots button.active { background: var(--accent); width: 24px; border-radius: 999px; }
+
+    /* Tentang */
+    .about-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 48px; align-items: center; }
+    .about-grid .photo { aspect-ratio: 1; border-radius: 50%; max-width: 320px; }
+    .about p { color: var(--muted); margin-bottom: 14px; }
+    .skills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+    .skills span {
+      background: var(--accent-soft); color: var(--accent-dark);
+      padding: 6px 14px; border-radius: 999px; font-size: .88rem; font-weight: 600;
+    }
+
+    /* FAQ */
+    .faq { background: var(--card); border-block: 1px solid var(--line); }
+    details {
+      border: 1px solid var(--line); border-radius: 12px; background: var(--bg);
+      padding: 18px 22px; margin-bottom: 12px; max-width: 760px;
+    }
+    summary { cursor: pointer; font-weight: 600; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: "+"; font-size: 1.3rem; color: var(--accent); }
+    details[open] summary::after { content: "\2212"; }
+    details p { margin-top: 12px; color: var(--muted); }
+
+    /* Kontak */
+    .contact { text-align: center; }
+    .contact-box {
+      background: var(--accent); color: #fff; border-radius: 28px; padding: 56px 24px;
+    }
+    .contact-box h2 { margin-bottom: 10px; }
+    .contact-box p { opacity: .92; max-width: 520px; margin: 0 auto 26px; }
+    .contact-box .btn { background: #fff; color: var(--accent); border-color: #fff; }
+    .contact-box .btn:hover { background: var(--accent-soft); }
+    .links { display: flex; justify-content: center; flex-wrap: wrap; gap: 22px; margin-top: 26px; font-size: .95rem; }
+    .links a { text-decoration: underline; text-underline-offset: 3px; opacity: .95; }
+
+    footer { padding: 28px 0 90px; text-align: center; color: var(--muted); font-size: .88rem; }
+
+    /* Tombol WhatsApp melayang */
+    .wa-float {
+      position: fixed; right: 18px; bottom: 18px; z-index: 60;
+      background: #25d366; color: #fff; border-radius: 999px;
+      padding: 14px 22px; font-weight: 700; display: flex; align-items: center; gap: 8px;
+      box-shadow: 0 10px 24px -8px rgba(37, 211, 102, .7);
+    }
+    .wa-float:hover { filter: brightness(.95); }
+
+    /* Responsif */
+    @media (max-width: 820px) {
+      nav ul { display: none; }
+      .hero-grid, .about-grid { grid-template-columns: 1fr; }
+      .hero .photo { max-width: 340px; }
+      .grid-3, .works { grid-template-columns: 1fr; }
+      .steps, .why-grid, .strip-grid { grid-template-columns: repeat(2, 1fr); }
+      .about-grid .photo { margin-inline: auto; }
+      section { padding: 56px 0; }
+    }
+    @media (max-width: 1000px) {
+      .car-track .quote, .car-track .prod { flex-basis: calc((100% - 20px) / 2); }
+    }
+    @media (max-width: 820px) {
+      .car-track .quote, .car-track .prod { flex-basis: 100%; }
+      .car-btn.prev { left: 4px; }
+      .car-btn.next { right: 4px; }
+    }
+    @media (max-width: 480px) {
+      .steps, .why-grid { grid-template-columns: 1fr; }
+    }
+    @media (min-width: 821px) and (max-width: 1000px) {
+      .grid-3, .works { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container nav">
+      <!-- Ganti logo: taruh file logo.jpg di folder yang sama dengan index.html (tinggi ideal 40-48px) -->
+      <a href="#" class="logo" aria-label="Logo"><img src="logo.jpg" alt="Logo" onerror="this.parentNode.classList.add('no-logo')"></a>
+      <nav>
+        <ul>
+          <li><a href="#produk">Paket CCTV</a></li>
+          <li><a href="#keunggulan">Keunggulan</a></li>
+          <li><a href="#lokasi">Pemasangan</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </nav>
+      <a class="btn btn-primary wa-link" href="#" target="_blank" rel="noopener">Chat WhatsApp</a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">Jual &amp; Pasang CCTV</span>
+          <h1>Pantau rumah dan usahamu <em>24 jam, dari HP</em></h1>
+          <p class="lead">Jual dan pasang CCTV untuk rumah, toko, gudang, dan kantor. Gambar jernih siang maupun malam, bisa dilihat kapan saja lewat smartphone, dan bergaransi.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary wa-link" href="#" target="_blank" rel="noopener">Konsultasi &amp; Survei Gratis</a>
+            <a class="btn btn-ghost" href="#produk">Lihat Paket</a>
+          </div>
+          <div class="stats">
+            <div><strong>100+</strong><span>Titik terpasang</span></div>
+            <div><strong>1 hari</strong><span>Pemasangan selesai</span></div>
+            <div><strong>Garansi</strong><span>Unit &amp; pemasangan</span></div>
+          </div>
+        </div>
+        <!-- Ganti dengan foto produk/pemasanganmu: <div class="photo"><img src="images/foto-cctv.jpg" alt="Pemasangan CCTV Naokori"></div> -->
+        <div class="photo"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgMTAwMCI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMGY3NjZlIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMzRhODljIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSIxMDAwIiBmaWxsPSJ1cmwoI2cpIi8+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjgwMCIgaGVpZ2h0PSIxMDAwIiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIuMDYiLz4KPHJlY3QgeD0iNjAiIHk9IjcwMCIgd2lkdGg9IjY4MCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiMwYjViNTUiIG9wYWNpdHk9Ii41Ii8+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTMwLDE3MCkgc2NhbGUoMi4yLDIuMikiPgo8cmVjdCB4PSItNiIgeT0iLTEwIiB3aWR0aD0iMTIiIGhlaWdodD0iNjAiIHJ4PSI0IiBmaWxsPSIjZTVlN2ViIi8+CjxyZWN0IHg9Ii02IiB5PSIyMCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjEwIiByeD0iMyIgZmlsbD0iI2NiZDVlMSIvPgo8cmVjdCB4PSIzMCIgeT0iMCIgd2lkdGg9IjkwIiBoZWlnaHQ9IjM4IiByeD0iMTAiIGZpbGw9IiNmOGZhZmMiIHN0cm9rZT0iIzk0YTNiOCIgc3Ryb2tlLXdpZHRoPSIzIiB0cmFuc2Zvcm09InJvdGF0ZSgxMiAzMCAwKSIvPgo8Y2lyY2xlIGN4PSIxMTgiIGN5PSIyNiIgcj0iMTQiIGZpbGw9IiMwZjE3MmEiIHRyYW5zZm9ybT0icm90YXRlKDEyIDMwIDApIi8+CjxjaXJjbGUgY3g9IjExOCIgY3k9IjI2IiByPSI2IiBmaWxsPSIjMzhiZGY4IiB0cmFuc2Zvcm09InJvdGF0ZSgxMiAzMCAwKSIvPgo8Y2lyY2xlIGN4PSI0NSIgY3k9IjkiIHI9IjMiIGZpbGw9IiNlZjQ0NDQiIHRyYW5zZm9ybT0icm90YXRlKDEyIDMwIDApIi8+PC9nPjxwYXRoIGQ9Ik01MjAgMzMwIHExNCAtMTAgMjggMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utb3BhY2l0eT0iMC44IiBzdHJva2Utd2lkdGg9IjQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgdHJhbnNmb3JtPSJyb3RhdGUoLTIwIDUyMCAzMzApIi8+PHBhdGggZD0iTTUyMCAzMzAgcTI2IC0xOCA1MiAwIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1vcGFjaXR5PSIwLjYwMDAwMDAwMDAwMDAwMDEiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiB0cmFuc2Zvcm09InJvdGF0ZSgtMjAgNTIwIDMzMCkiLz48cGF0aCBkPSJNNTIwIDMzMCBxMzggLTI2IDc2IDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLW9wYWNpdHk9IjAuNCIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHRyYW5zZm9ybT0icm90YXRlKC0yMCA1MjAgMzMwKSIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDQyMCw1MjApIj48cmVjdCB3aWR0aD0iMjYwIiBoZWlnaHQ9IjQ0MCIgcng9IjM2IiBmaWxsPSIjMGYxNzJhIi8+CjxyZWN0IHg9IjE0IiB5PSIzMCIgd2lkdGg9IjIzMiIgaGVpZ2h0PSIzODAiIHJ4PSIxOCIgZmlsbD0iIzFlMjkzYiIvPgo8cmVjdCB4PSIyNCIgeT0iNDQiIHdpZHRoPSIyMTIiIGhlaWdodD0iMTUwIiByeD0iMTAiIGZpbGw9IiMzMzQxNTUiLz48Y2lyY2xlIGN4PSI2MCIgY3k9IjcwIiByPSI2IiBmaWxsPSIjZWY0NDQ0Ii8+PHRleHQgeD0iNzQiIHk9Ijc1IiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiNmZmYiPkxJVkU8L3RleHQ+CjxwYXRoIGQ9Ik0yNCAxOTAgbDUwIC02MCA0MCAzMCA2MCAtODAgNjIgOTAgdjE0IGgtMjEyeiIgZmlsbD0iIzQ3NTU2OSIvPgo8cmVjdCB4PSIyNCIgeT0iMjA2IiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjkwIiByeD0iOCIgZmlsbD0iIzMzNDE1NSIvPjxyZWN0IHg9IjEzNiIgeT0iMjA2IiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjkwIiByeD0iOCIgZmlsbD0iIzMzNDE1NSIvPgo8cmVjdCB4PSIyNCIgeT0iMzA4IiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjkwIiByeD0iOCIgZmlsbD0iIzMzNDE1NSIvPjxyZWN0IHg9IjEzNiIgeT0iMzA4IiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjkwIiByeD0iOCIgZmlsbD0iIzMzNDE1NSIvPjwvZz48L3N2Zz4=" alt="Kamera CCTV dan pemantauan lewat HP"></div>
+      </div>
+    </section>
+
+    <!-- STRIP -->
+    <section class="strip">
+      <div class="container strip-grid">
+        <div class="strip-item">&#10003; Gratis survei lokasi</div>
+        <div class="strip-item">&#10003; Pantau via HP</div>
+        <div class="strip-item">&#10003; Night vision jernih</div>
+        <div class="strip-item">&#10003; Bergaransi resmi</div>
+      </div>
+    </section>
+
+    <!-- MEREK -->
+    <section id="merek" style="padding: 64px 0 56px;">
+      <div class="container">
+        <span class="eyebrow">Merek</span>
+        <h2>Merek yang kami sediakan</h2>
+        <p class="section-intro">Kami menyediakan dan memasang berbagai merek CCTV. Pilihan merek disesuaikan dengan kebutuhan dan budget kamu.</p>
+        <div class="brands-wrap">
+          <button type="button" class="brand" data-brand="Hikvision" aria-expanded="false">Hikvision</button>
+          <button type="button" class="brand" data-brand="HiLook" aria-expanded="false">HiLook</button>
+          <button type="button" class="brand" data-brand="Meari" aria-expanded="false">Meari</button>
+          <button type="button" class="brand" data-brand="Imou" aria-expanded="false">Imou</button>
+          <button type="button" class="brand" data-brand="EZVIZ" aria-expanded="false">EZVIZ</button>
+        </div>
+        <p class="brand-hint">Klik salah satu merek untuk melihat daftar kamera dan spesifikasinya.</p>
+        <div class="brand-panel" id="brandPanel" hidden></div>
+      </div>
+    </section>
+
+    <!-- PRODUK -->
+    <section class="services" id="produk">
+      <div class="container">
+        <span class="eyebrow">Paket CCTV</span>
+        <h2>Pilih paket Hikvision sesuai kebutuhan</h2>
+        <p class="section-intro">Pilih paket IP Camera atau Analog. Semua paket sudah termasuk kamera, NVR/DVR, hardisk 2TB, dan instalasi. Harga di bawah adalah harga mulai dari.</p>
+        <h3 class="cat-title">Paket IP Camera</h3>
+        <div class="grid-3">
+          <div class="card">
+            <div class="icon">&#128249;</div>
+            <h3>Paket 4 Kamera</h3>
+            <ul>
+              <li>4 kamera indoor/outdoor</li>
+              <li>NVR 4 channel</li>
+              <li>Hardisk 2TB</li>
+              <li>Akses lewat HP</li>
+              <li>Gratis instalasi</li>
+              <li>Didukung material tambahan</li>
+            </ul>
+            <div class="price">Mulai Rp9.500.000</div>
+            <a class="btn btn-ghost wa-link" href="#" target="_blank" rel="noopener">Pesan Paket Ini</a>
+          </div>
+          <div class="card">
+            <div class="icon">&#128249;</div>
+            <h3>Paket 8 Kamera</h3>
+            <ul>
+              <li>8 kamera indoor/outdoor</li>
+              <li>NVR 8 channel</li>
+              <li>Hardisk 2TB</li>
+              <li>Akses lewat HP</li>
+              <li>Gratis instalasi</li>
+              <li>Didukung material tambahan</li>
+            </ul>
+            <div class="price">Mulai Rp14.500.000</div>
+            <a class="btn btn-ghost wa-link" href="#" target="_blank" rel="noopener">Pesan Paket Ini</a>
+          </div>
+          <div class="card">
+            <div class="icon">&#128249;</div>
+            <h3>Paket 16 Kamera</h3>
+            <ul>
+              <li>16 kamera indoor/outdoor</li>
+              <li>NVR 8 channel</li>
+              <li>Hardisk 2TB</li>
+              <li>Akses lewat HP</li>
+              <li>Gratis instalasi</li>
+              <li>Didukung material tambahan</li>
+            </ul>
+            <div class="price">Mulai Rp24.000.000</div>
+            <a class="btn btn-ghost wa-link" href="#" target="_blank" rel="noopener">Pesan Paket Ini</a>
+          </div>
+        </div>
+
+        <h3 class="cat-title">Paket Analog</h3>
+        <div class="grid-3">
+          <div class="card">
+            <div class="icon">&#128249;</div>
+            <h3>Paket 4 Kamera</h3>
+            <ul>
+              <li>4 kamera indoor/outdoor</li>
+              <li>DVR 8 channel</li>
+              <li>Hardisk 2TB</li>
+              <li>Akses lewat HP</li>
+              <li>Gratis instalasi</li>
+              <li>Didukung material tambahan</li>
+            </ul>
+            <div class="price">Mulai Rp7.000.000</div>
+            <a class="btn btn-ghost wa-link" href="#" target="_blank" rel="noopener">Pesan Paket Ini</a>
+          </div>
+          <div class="card">
+            <div class="icon">&#128249;</div>
+            <h3>Paket 8 Kamera</h3>
+            <ul>
+              <li>8 kamera indoor/outdoor</li>
+              <li>DVR 8 channel</li>
+              <li>Hardisk 2TB</li>
+              <li>Akses lewat HP</li>
+              <li>Gratis instalasi</li>
+              <li>Didukung material tambahan</li>
+            </ul>
+            <div class="price">Mulai Rp10.500.000</div>
+            <a class="btn btn-ghost wa-link" href="#" target="_blank" rel="noopener">Pesan Paket Ini</a>
+          </div>
+          <div class="card">
+            <div class="icon">&#128249;</div>
+            <h3>Paket 16 Kamera</h3>
+            <ul>
+              <li>16 kamera indoor/outdoor</li>
+              <li>DVR 8 channel</li>
+              <li>Hardisk 2TB</li>
+              <li>Akses lewat HP</li>
+              <li>Gratis instalasi</li>
+              <li>Didukung material tambahan</li>
+            </ul>
+            <div class="price">Mulai Rp17.300.000</div>
+            <a class="btn btn-ghost wa-link" href="#" target="_blank" rel="noopener">Pesan Paket Ini</a>
+          </div>
+        </div>
+
+        <h3 class="cat-title">Layanan Lainnya</h3>
+        <div class="grid-3">
+          <div class="card">
+            <div class="icon">&#128246;</div>
+            <h3>CCTV Wifi (IP Cam)</h3>
+            <p>Tanpa kabel ribet, tinggal colok dan sambungkan ke wifi.</p>
+            <div class="price">Mulai Rp250.000</div>
+            <a class="btn btn-ghost wa-link" href="#" target="_blank" rel="noopener">Tanya Stok</a>
+          </div>
+          <div class="card">
+            <div class="icon">&#128295;</div>
+            <h3>Tambah &amp; Perbaiki</h3>
+            <p>Tambah kamera, ganti hardisk, atau servis CCTV lama yang bermasalah.</p>
+            <div class="price">Mulai Rp100.000</div>
+            <a class="btn btn-ghost wa-link" href="#" target="_blank" rel="noopener">Konsultasi</a>
+          </div>
+          <div class="card">
+            <div class="icon">&#128274;</div>
+            <h3>Paket Kustom</h3>
+            <p>Kebutuhan khusus? Kami survei, hitung jumlah titik, lalu kirim penawaran terbaik.</p>
+            <div class="price">Sesuai kebutuhan</div>
+            <a class="btn btn-ghost wa-link" href="#" target="_blank" rel="noopener">Minta Penawaran</a>
+          </div>
+        </div>
+        <p class="note">*Harga dan spesifikasi dapat berubah sesuai merek, resolusi kamera, dan kondisi lokasi. Penawaran pasti diberikan setelah konsultasi.</p>
+      </div>
+    </section>
+
+    <!-- KEUNGGULAN -->
+    <section id="keunggulan">
+      <div class="container">
+        <span class="eyebrow">Kenapa pilih kami</span>
+        <h2>Aman, jelas, dan tanpa ribet</h2>
+        <p class="section-intro">Kami tidak hanya menjual kamera, tapi memastikan sistemnya terpasang rapi dan benar-benar berfungsi.</p>
+        <div class="why-grid">
+          <div class="why">
+            <div class="icon">&#128065;</div>
+            <h3>Gambar Jernih</h3>
+            <p>Resolusi tinggi dan night vision, wajah dan plat nomor tetap terlihat.</p>
+          </div>
+          <div class="why">
+            <div class="icon">&#128241;</div>
+            <h3>Pantau Lewat HP</h3>
+            <p>Lihat live dan rekaman dari mana saja, kami bantu setting sampai bisa.</p>
+          </div>
+          <div class="why">
+            <div class="icon">&#128737;</div>
+            <h3>Bergaransi</h3>
+            <p>Garansi unit dan layanan purna jual jika ada kendala setelah pemasangan.</p>
+          </div>
+          <div class="why">
+            <div class="icon">&#128119;</div>
+            <h3>Pemasangan Rapi</h3>
+            <p>Kabel tersembunyi, posisi kamera dihitung agar tidak ada titik buta.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CARA KERJA -->
+    <section class="how" id="cara-kerja">
+      <div class="container">
+        <span class="eyebrow">Cara pesan</span>
+        <h2>Empat langkah sampai terpasang</h2>
+        <p class="section-intro">Prosesnya sederhana dan transparan dari awal sampai akhir.</p>
+        <div class="steps">
+          <div class="step">
+            <h3>Konsultasi</h3>
+            <p>Hubungi lewat WhatsApp, ceritakan kebutuhan dan lokasi yang ingin dipantau.</p>
+          </div>
+          <div class="step">
+            <h3>Survei &amp; Penawaran</h3>
+            <p>Kami survei lokasi (gratis), hitung titik kamera, lalu kirim penawaran jelas.</p>
+          </div>
+          <div class="step">
+            <h3>Pemasangan</h3>
+            <p>Setelah deal, tim memasang dan mengatur semuanya, umumnya selesai dalam 1 hari.</p>
+          </div>
+          <div class="step">
+            <h3>Serah Terima</h3>
+            <p>Kami ajarkan cara memantau lewat HP, lalu garansi mulai berlaku.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOKASI PEMASANGAN -->
+    <section id="lokasi">
+      <div class="container">
+        <span class="eyebrow">Pemasangan</span>
+        <h2>Cocok dipasang di mana saja</h2>
+        <p class="section-intro">Beberapa jenis lokasi yang biasa kami tangani. Ilustrasi contoh, bisa kamu ganti dengan foto hasil pemasanganmu.</p>
+        <div class="works">
+          <!-- Contoh memakai gambar: <div class="work"><img src="images/pasang-1.jpg" alt="CCTV Rumah"><span>Rumah Tinggal</span></div> -->
+          <div class="work"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgNjAwIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMwZjc2NmUiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMyZGQ0YmYiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0idXJsKCNnKSIvPjxyZWN0IHk9IjMwMCIgd2lkdGg9IjgwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiMwMDAiIG9wYWNpdHk9Ii4xNSIvPjxwb2x5Z29uIHBvaW50cz0iMTUwLDMwMCAzMzAsMTUwIDUxMCwzMDAiIGZpbGw9IiNmZmYiIG9wYWNpdHk9Ii45Ii8+PHJlY3QgeD0iMTkwIiB5PSIzMDAiIHdpZHRoPSIyODAiIGhlaWdodD0iMjIwIiBmaWxsPSIjZmZmIiBvcGFjaXR5PSIuODUiLz48cmVjdCB4PSIzMDAiIHk9IjM4MCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iIzBiNWI1NSIvPjxyZWN0IHg9IjIxNSIgeT0iMzQwIiB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIGZpbGw9IiNiZmUzZGQiLz48cmVjdCB4PSIzODUiIHk9IjM0MCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjYmZlM2RkIi8+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNjQwLDYwKSBzY2FsZSgtMS4wLDEuMCkiPgo8cmVjdCB4PSItNiIgeT0iLTEwIiB3aWR0aD0iMTIiIGhlaWdodD0iNjAiIHJ4PSI0IiBmaWxsPSIjZTVlN2ViIi8+CjxyZWN0IHg9Ii02IiB5PSIyMCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjEwIiByeD0iMyIgZmlsbD0iI2NiZDVlMSIvPgo8cmVjdCB4PSIzMCIgeT0iMCIgd2lkdGg9IjkwIiBoZWlnaHQ9IjM4IiByeD0iMTAiIGZpbGw9IiNmOGZhZmMiIHN0cm9rZT0iIzk0YTNiOCIgc3Ryb2tlLXdpZHRoPSIzIiB0cmFuc2Zvcm09InJvdGF0ZSgxMiAzMCAwKSIvPgo8Y2lyY2xlIGN4PSIxMTgiIGN5PSIyNiIgcj0iMTQiIGZpbGw9IiMwZjE3MmEiIHRyYW5zZm9ybT0icm90YXRlKDEyIDMwIDApIi8+CjxjaXJjbGUgY3g9IjExOCIgY3k9IjI2IiByPSI2IiBmaWxsPSIjMzhiZGY4IiB0cmFuc2Zvcm09InJvdGF0ZSgxMiAzMCAwKSIvPgo8Y2lyY2xlIGN4PSI0NSIgY3k9IjkiIHI9IjMiIGZpbGw9IiNlZjQ0NDQiIHRyYW5zZm9ybT0icm90YXRlKDEyIDMwIDApIi8+PC9nPjwvc3ZnPg==" alt="CCTV Rumah Tinggal"><span>Rumah Tinggal</span></div>
+          <div class="work"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgNjAwIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNiNDUzMDkiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNmYmJmMjQiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0idXJsKCNnKSIvPjxyZWN0IHk9IjMwMCIgd2lkdGg9IjgwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiMwMDAiIG9wYWNpdHk9Ii4xNSIvPjxyZWN0IHg9IjExMCIgeT0iMjYwIiB3aWR0aD0iNDAwIiBoZWlnaHQ9IjI2MCIgZmlsbD0iI2ZmZiIgb3BhY2l0eT0iLjkiLz48cGF0aCBkPSJNMTAwIDI2MGg0MjBsLTMwIC01MGgtMzYweiIgZmlsbD0iIzdjMmQxMiIvPjxyZWN0IHg9IjE1MCIgeT0iMzMwIiB3aWR0aD0iMTMwIiBoZWlnaHQ9IjE5MCIgZmlsbD0iI2JmZGJmZSIvPjxyZWN0IHg9IjMyMCIgeT0iMzMwIiB3aWR0aD0iMTUwIiBoZWlnaHQ9IjExMCIgZmlsbD0iI2JmZGJmZSIvPjxyZWN0IHg9IjE3MCIgeT0iMjkwIiB3aWR0aD0iMTYwIiBoZWlnaHQ9IjI2IiByeD0iNiIgZmlsbD0iI2ZkZTY4YSIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDY0MCw2MCkgc2NhbGUoLTEuMCwxLjApIj4KPHJlY3QgeD0iLTYiIHk9Ii0xMCIgd2lkdGg9IjEyIiBoZWlnaHQ9IjYwIiByeD0iNCIgZmlsbD0iI2U1ZTdlYiIvPgo8cmVjdCB4PSItNiIgeT0iMjAiIHdpZHRoPSI2MCIgaGVpZ2h0PSIxMCIgcng9IjMiIGZpbGw9IiNjYmQ1ZTEiLz4KPHJlY3QgeD0iMzAiIHk9IjAiIHdpZHRoPSI5MCIgaGVpZ2h0PSIzOCIgcng9IjEwIiBmaWxsPSIjZjhmYWZjIiBzdHJva2U9IiM5NGEzYjgiIHN0cm9rZS13aWR0aD0iMyIgdHJhbnNmb3JtPSJyb3RhdGUoMTIgMzAgMCkiLz4KPGNpcmNsZSBjeD0iMTE4IiBjeT0iMjYiIHI9IjE0IiBmaWxsPSIjMGYxNzJhIiB0cmFuc2Zvcm09InJvdGF0ZSgxMiAzMCAwKSIvPgo8Y2lyY2xlIGN4PSIxMTgiIGN5PSIyNiIgcj0iNiIgZmlsbD0iIzM4YmRmOCIgdHJhbnNmb3JtPSJyb3RhdGUoMTIgMzAgMCkiLz4KPGNpcmNsZSBjeD0iNDUiIGN5PSI5IiByPSIzIiBmaWxsPSIjZWY0NDQ0IiB0cmFuc2Zvcm09InJvdGF0ZSgxMiAzMCAwKSIvPjwvZz48L3N2Zz4=" alt="CCTV Toko &amp; Ruko"><span>Toko &amp; Ruko</span></div>
+          <div class="work"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgNjAwIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiM5ZDE3NGQiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNmNDcyYjYiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0idXJsKCNnKSIvPjxyZWN0IHk9IjMwMCIgd2lkdGg9IjgwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiMwMDAiIG9wYWNpdHk9Ii4xNSIvPjxyZWN0IHg9IjEzMCIgeT0iMzIwIiB3aWR0aD0iMzYwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2ZmZiIgb3BhY2l0eT0iLjkiLz48cGF0aCBkPSJNMTEwIDMyMGg0MDBsLTQwIC03MGgtMzIweiIgZmlsbD0iI2JlMTg1ZCIvPjxjaXJjbGUgY3g9IjIzMCIgY3k9IjQyMCIgcj0iMzgiIGZpbGw9IiNmYmNmZTgiLz48Y2lyY2xlIGN4PSIzOTAiIGN5PSI0MjAiIHI9IjM4IiBmaWxsPSIjZmJjZmU4Ii8+PHJlY3QgeD0iMjE1IiB5PSI0NTUiIHdpZHRoPSIzMCIgaGVpZ2h0PSI2NSIgZmlsbD0iIzlkMTc0ZCIvPjxyZWN0IHg9IjM3NSIgeT0iNDU1IiB3aWR0aD0iMzAiIGhlaWdodD0iNjUiIGZpbGw9IiM5ZDE3NGQiLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg2NDAsNjApIHNjYWxlKC0xLjAsMS4wKSI+CjxyZWN0IHg9Ii02IiB5PSItMTAiIHdpZHRoPSIxMiIgaGVpZ2h0PSI2MCIgcng9IjQiIGZpbGw9IiNlNWU3ZWIiLz4KPHJlY3QgeD0iLTYiIHk9IjIwIiB3aWR0aD0iNjAiIGhlaWdodD0iMTAiIHJ4PSIzIiBmaWxsPSIjY2JkNWUxIi8+CjxyZWN0IHg9IjMwIiB5PSIwIiB3aWR0aD0iOTAiIGhlaWdodD0iMzgiIHJ4PSIxMCIgZmlsbD0iI2Y4ZmFmYyIgc3Ryb2tlPSIjOTRhM2I4IiBzdHJva2Utd2lkdGg9IjMiIHRyYW5zZm9ybT0icm90YXRlKDEyIDMwIDApIi8+CjxjaXJjbGUgY3g9IjExOCIgY3k9IjI2IiByPSIxNCIgZmlsbD0iIzBmMTcyYSIgdHJhbnNmb3JtPSJyb3RhdGUoMTIgMzAgMCkiLz4KPGNpcmNsZSBjeD0iMTE4IiBjeT0iMjYiIHI9IjYiIGZpbGw9IiMzOGJkZjgiIHRyYW5zZm9ybT0icm90YXRlKDEyIDMwIDApIi8+CjxjaXJjbGUgY3g9IjQ1IiBjeT0iOSIgcj0iMyIgZmlsbD0iI2VmNDQ0NCIgdHJhbnNmb3JtPSJyb3RhdGUoMTIgMzAgMCkiLz48L2c+PC9zdmc+" alt="CCTV Warung Makan &amp; Kafe"><span>Warung Makan &amp; Kafe</span></div>
+          <div class="work"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgNjAwIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMzZjNmNDYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNhMWExYWEiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0idXJsKCNnKSIvPjxyZWN0IHk9IjMwMCIgd2lkdGg9IjgwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiMwMDAiIG9wYWNpdHk9Ii4xNSIvPjxwb2x5Z29uIHBvaW50cz0iMTAwLDMwMCAzMTAsMTkwIDUyMCwzMDAiIGZpbGw9IiNlNGU0ZTciLz48cmVjdCB4PSIxMDAiIHk9IjMwMCIgd2lkdGg9IjQyMCIgaGVpZ2h0PSIyMjAiIGZpbGw9IiNmNGY0ZjUiLz48cmVjdCB4PSIyMDAiIHk9IjM2MCIgd2lkdGg9IjIyMCIgaGVpZ2h0PSIxNjAiIGZpbGw9IiM3MTcxN2EiLz48ZyBzdHJva2U9IiNhMWExYWEiIHN0cm9rZS13aWR0aD0iNCI+PHBhdGggZD0iTTIwMCA0MDBoMjIwTTIwMCA0NDBoMjIwTTIwMCA0ODBoMjIwIi8+PC9nPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDY0MCw2MCkgc2NhbGUoLTEuMCwxLjApIj4KPHJlY3QgeD0iLTYiIHk9Ii0xMCIgd2lkdGg9IjEyIiBoZWlnaHQ9IjYwIiByeD0iNCIgZmlsbD0iI2U1ZTdlYiIvPgo8cmVjdCB4PSItNiIgeT0iMjAiIHdpZHRoPSI2MCIgaGVpZ2h0PSIxMCIgcng9IjMiIGZpbGw9IiNjYmQ1ZTEiLz4KPHJlY3QgeD0iMzAiIHk9IjAiIHdpZHRoPSI5MCIgaGVpZ2h0PSIzOCIgcng9IjEwIiBmaWxsPSIjZjhmYWZjIiBzdHJva2U9IiM5NGEzYjgiIHN0cm9rZS13aWR0aD0iMyIgdHJhbnNmb3JtPSJyb3RhdGUoMTIgMzAgMCkiLz4KPGNpcmNsZSBjeD0iMTE4IiBjeT0iMjYiIHI9IjE0IiBmaWxsPSIjMGYxNzJhIiB0cmFuc2Zvcm09InJvdGF0ZSgxMiAzMCAwKSIvPgo8Y2lyY2xlIGN4PSIxMTgiIGN5PSIyNiIgcj0iNiIgZmlsbD0iIzM4YmRmOCIgdHJhbnNmb3JtPSJyb3RhdGUoMTIgMzAgMCkiLz4KPGNpcmNsZSBjeD0iNDUiIGN5PSI5IiByPSIzIiBmaWxsPSIjZWY0NDQ0IiB0cmFuc2Zvcm09InJvdGF0ZSgxMiAzMCAwKSIvPjwvZz48L3N2Zz4=" alt="CCTV Gudang &amp; Pabrik"><span>Gudang &amp; Pabrik</span></div>
+          <div class="work"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgNjAwIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMxZDRlZDgiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM2MGE1ZmEiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0idXJsKCNnKSIvPjxyZWN0IHk9IjMwMCIgd2lkdGg9IjgwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiMwMDAiIG9wYWNpdHk9Ii4xNSIvPjxyZWN0IHg9IjE5MCIgeT0iMTMwIiB3aWR0aD0iMjQwIiBoZWlnaHQ9IjM5MCIgZmlsbD0iI2ZmZiIgb3BhY2l0eT0iLjkyIi8+PHJlY3QgeD0iMjEwIiB5PSIxNTUiIHdpZHRoPSI0NCIgaGVpZ2h0PSI0MCIgZmlsbD0iI2JmZGJmZSIvPjxyZWN0IHg9IjIxMCIgeT0iMjI1IiB3aWR0aD0iNDQiIGhlaWdodD0iNDAiIGZpbGw9IiNiZmRiZmUiLz48cmVjdCB4PSIyMTAiIHk9IjI5NSIgd2lkdGg9IjQ0IiBoZWlnaHQ9IjQwIiBmaWxsPSIjYmZkYmZlIi8+PHJlY3QgeD0iMjEwIiB5PSIzNjUiIHdpZHRoPSI0NCIgaGVpZ2h0PSI0MCIgZmlsbD0iI2JmZGJmZSIvPjxyZWN0IHg9IjI2MyIgeT0iMTU1IiB3aWR0aD0iNDQiIGhlaWdodD0iNDAiIGZpbGw9IiNiZmRiZmUiLz48cmVjdCB4PSIyNjMiIHk9IjIyNSIgd2lkdGg9IjQ0IiBoZWlnaHQ9IjQwIiBmaWxsPSIjYmZkYmZlIi8+PHJlY3QgeD0iMjYzIiB5PSIyOTUiIHdpZHRoPSI0NCIgaGVpZ2h0PSI0MCIgZmlsbD0iI2JmZGJmZSIvPjxyZWN0IHg9IjI2MyIgeT0iMzY1IiB3aWR0aD0iNDQiIGhlaWdodD0iNDAiIGZpbGw9IiNiZmRiZmUiLz48cmVjdCB4PSIzMTYiIHk9IjE1NSIgd2lkdGg9IjQ0IiBoZWlnaHQ9IjQwIiBmaWxsPSIjYmZkYmZlIi8+PHJlY3QgeD0iMzE2IiB5PSIyMjUiIHdpZHRoPSI0NCIgaGVpZ2h0PSI0MCIgZmlsbD0iI2JmZGJmZSIvPjxyZWN0IHg9IjMxNiIgeT0iMjk1IiB3aWR0aD0iNDQiIGhlaWdodD0iNDAiIGZpbGw9IiNiZmRiZmUiLz48cmVjdCB4PSIzMTYiIHk9IjM2NSIgd2lkdGg9IjQ0IiBoZWlnaHQ9IjQwIiBmaWxsPSIjYmZkYmZlIi8+PHJlY3QgeD0iMzY5IiB5PSIxNTUiIHdpZHRoPSI0NCIgaGVpZ2h0PSI0MCIgZmlsbD0iI2JmZGJmZSIvPjxyZWN0IHg9IjM2OSIgeT0iMjI1IiB3aWR0aD0iNDQiIGhlaWdodD0iNDAiIGZpbGw9IiNiZmRiZmUiLz48cmVjdCB4PSIzNjkiIHk9IjI5NSIgd2lkdGg9IjQ0IiBoZWlnaHQ9IjQwIiBmaWxsPSIjYmZkYmZlIi8+PHJlY3QgeD0iMzY5IiB5PSIzNjUiIHdpZHRoPSI0NCIgaGVpZ2h0PSI0MCIgZmlsbD0iI2JmZGJmZSIvPjxyZWN0IHg9IjI4NSIgeT0iNDUwIiB3aWR0aD0iNTAiIGhlaWdodD0iNzAiIGZpbGw9IiMxZTNhOGEiLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg2NDAsNjApIHNjYWxlKC0xLjAsMS4wKSI+CjxyZWN0IHg9Ii02IiB5PSItMTAiIHdpZHRoPSIxMiIgaGVpZ2h0PSI2MCIgcng9IjQiIGZpbGw9IiNlNWU3ZWIiLz4KPHJlY3QgeD0iLTYiIHk9IjIwIiB3aWR0aD0iNjAiIGhlaWdodD0iMTAiIHJ4PSIzIiBmaWxsPSIjY2JkNWUxIi8+CjxyZWN0IHg9IjMwIiB5PSIwIiB3aWR0aD0iOTAiIGhlaWdodD0iMzgiIHJ4PSIxMCIgZmlsbD0iI2Y4ZmFmYyIgc3Ryb2tlPSIjOTRhM2I4IiBzdHJva2Utd2lkdGg9IjMiIHRyYW5zZm9ybT0icm90YXRlKDEyIDMwIDApIi8+CjxjaXJjbGUgY3g9IjExOCIgY3k9IjI2IiByPSIxNCIgZmlsbD0iIzBmMTcyYSIgdHJhbnNmb3JtPSJyb3RhdGUoMTIgMzAgMCkiLz4KPGNpcmNsZSBjeD0iMTE4IiBjeT0iMjYiIHI9IjYiIGZpbGw9IiMzOGJkZjgiIHRyYW5zZm9ybT0icm90YXRlKDEyIDMwIDApIi8+CjxjaXJjbGUgY3g9IjQ1IiBjeT0iOSIgcj0iMyIgZmlsbD0iI2VmNDQ0NCIgdHJhbnNmb3JtPSJyb3RhdGUoMTIgMzAgMCkiLz48L2c+PC9zdmc+" alt="CCTV Kantor"><span>Kantor</span></div>
+          <div class="work"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgNjAwIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMxNjY1MzQiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM4NmVmYWMiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0idXJsKCNnKSIvPjxyZWN0IHk9IjMwMCIgd2lkdGg9IjgwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiMwMDAiIG9wYWNpdHk9Ii4xNSIvPjxyZWN0IHg9IjEzMCIgeT0iMTgwIiB3aWR0aD0iMzYwIiBoZWlnaHQ9IjM0MCIgZmlsbD0iI2ZmZiIgb3BhY2l0eT0iLjkyIi8+PHJlY3QgeD0iMTMwIiB5PSIzNDAiIHdpZHRoPSIzNjAiIGhlaWdodD0iOCIgZmlsbD0iIzE2YTM0YSIvPjxyZWN0IHg9IjE2MCIgeT0iMjMwIiB3aWR0aD0iNTAiIGhlaWdodD0iNjAiIGZpbGw9IiNiYmY3ZDAiLz48cmVjdCB4PSIxNjAiIHk9IjQwMCIgd2lkdGg9IjUwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjYmJmN2QwIi8+PHJlY3QgeD0iMjM1IiB5PSIyMzAiIHdpZHRoPSI1MCIgaGVpZ2h0PSI2MCIgZmlsbD0iI2JiZjdkMCIvPjxyZWN0IHg9IjIzNSIgeT0iNDAwIiB3aWR0aD0iNTAiIGhlaWdodD0iNjAiIGZpbGw9IiNiYmY3ZDAiLz48cmVjdCB4PSIzMTAiIHk9IjIzMCIgd2lkdGg9IjUwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjYmJmN2QwIi8+PHJlY3QgeD0iMzEwIiB5PSI0MDAiIHdpZHRoPSI1MCIgaGVpZ2h0PSI2MCIgZmlsbD0iI2JiZjdkMCIvPjxyZWN0IHg9IjM4NSIgeT0iMjMwIiB3aWR0aD0iNTAiIGhlaWdodD0iNjAiIGZpbGw9IiNiYmY3ZDAiLz48cmVjdCB4PSIzODUiIHk9IjQwMCIgd2lkdGg9IjUwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjYmJmN2QwIi8+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNjQwLDYwKSBzY2FsZSgtMS4wLDEuMCkiPgo8cmVjdCB4PSItNiIgeT0iLTEwIiB3aWR0aD0iMTIiIGhlaWdodD0iNjAiIHJ4PSI0IiBmaWxsPSIjZTVlN2ViIi8+CjxyZWN0IHg9Ii02IiB5PSIyMCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjEwIiByeD0iMyIgZmlsbD0iI2NiZDVlMSIvPgo8cmVjdCB4PSIzMCIgeT0iMCIgd2lkdGg9IjkwIiBoZWlnaHQ9IjM4IiByeD0iMTAiIGZpbGw9IiNmOGZhZmMiIHN0cm9rZT0iIzk0YTNiOCIgc3Ryb2tlLXdpZHRoPSIzIiB0cmFuc2Zvcm09InJvdGF0ZSgxMiAzMCAwKSIvPgo8Y2lyY2xlIGN4PSIxMTgiIGN5PSIyNiIgcj0iMTQiIGZpbGw9IiMwZjE3MmEiIHRyYW5zZm9ybT0icm90YXRlKDEyIDMwIDApIi8+CjxjaXJjbGUgY3g9IjExOCIgY3k9IjI2IiByPSI2IiBmaWxsPSIjMzhiZGY4IiB0cmFuc2Zvcm09InJvdGF0ZSgxMiAzMCAwKSIvPgo8Y2lyY2xlIGN4PSI0NSIgY3k9IjkiIHI9IjMiIGZpbGw9IiNlZjQ0NDQiIHRyYW5zZm9ybT0icm90YXRlKDEyIDMwIDApIi8+PC9nPjwvc3ZnPg==" alt="CCTV Kos-kosan &amp; Penginapan"><span>Kos-kosan &amp; Penginapan</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONI -->
+    <section class="testi">
+      <div class="container">
+        <span class="eyebrow">Testimoni</span>
+        <h2>Kata pelanggan</h2>
+        <div class="carousel">
+          <button class="car-btn prev" aria-label="Ulasan sebelumnya">&#8249;</button>
+          <div class="car-track" id="testiTrack">
+            <div class="quote">
+              <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <p>Pemasangan rapi dan cepat. Sekarang saya bisa cek toko dari HP kapan saja.</p>
+              <div class="who"><div class="avatar">A</div><div><strong>Andi</strong><small>Pemilik Toko</small></div></div>
+            </div>
+            <div class="quote">
+              <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <p>Gambarnya jernih, malam pun jelas. Dijelaskan juga cara pakainya sampai paham.</p>
+              <div class="who"><div class="avatar">S</div><div><strong>Sari</strong><small>Pemilik Rumah</small></div></div>
+            </div>
+            <div class="quote">
+              <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <p>Harga jelas dari awal, tidak ada biaya tambahan. Ada kendala pun cepat ditangani.</p>
+              <div class="who"><div class="avatar">R</div><div><strong>Rudi</strong><small>Warung Makan Bahari</small></div></div>
+            </div>
+            <div class="quote">
+              <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <p>Kabelnya tersembunyi rapi, tidak merusak tampilan ruko. Tim datang sesuai jadwal.</p>
+              <div class="who"><div class="avatar">D</div><div><strong>Dewi</strong><small>Pemilik Ruko</small></div></div>
+            </div>
+            <div class="quote">
+              <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <p>Awalnya bingung pilih IP atau analog, dibantu sampai ketemu paket yang pas dengan budget.</p>
+              <div class="who"><div class="avatar">B</div><div><strong>Budi</strong><small>Pemilik Gudang</small></div></div>
+            </div>
+            <div class="quote">
+              <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <p>Sudah beberapa bulan dipakai, rekaman aman dan aplikasi di HP lancar. Recommended.</p>
+              <div class="who"><div class="avatar">M</div><div><strong>Maya</strong><small>Pemilik Kos-kosan</small></div></div>
+            </div>
+          </div>
+          <button class="car-btn next" aria-label="Ulasan berikutnya">&#8250;</button>
+        </div>
+        <div class="car-dots" id="testiDots"></div>
+      </div>
+    </section>
+
+    <!-- TENTANG -->
+    <section class="about" id="tentang">
+      <div class="container about-grid">
+        <div class="photo"><img src="foto-tentang.jpg" alt="Foto Naokori"></div>
+        <div>
+          <span class="eyebrow">Tentang kami</span>
+          <h2>Halo, kami Naokori</h2>
+          <p>Kami menyediakan CCTV dan jasa pemasangan untuk rumah dan usaha. Kami percaya keamanan yang baik tidak harus mahal, yang penting dipasang dengan benar, mudah dipakai, dan ada yang bisa dihubungi kalau butuh bantuan.</p>
+          <p>Ganti paragraf ini dengan ceritamu: sudah berapa lama berjualan CCTV, merek apa yang tersedia, dan kenapa pelanggan bisa percaya padamu.</p>
+          <div class="skills">
+            <span>CCTV Analog &amp; IP</span><span>Wifi Camera</span><span>DVR/NVR</span><span>Instalasi</span><span>Servis</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq" id="faq">
+      <div class="container">
+        <span class="eyebrow">FAQ</span>
+        <h2>Pertanyaan yang sering muncul</h2>
+        <p class="section-intro">Belum menemukan jawabannya? Tanyakan langsung lewat WhatsApp.</p>
+        <details>
+          <summary>Apakah survei lokasi benar-benar gratis?</summary>
+          <p>Ya, survei dan konsultasi gratis tanpa kewajiban memesan. Kami akan menghitung jumlah dan posisi kamera yang paling pas.</p>
+        </details>
+        <details>
+          <summary>Berapa lama pemasangannya?</summary>
+          <p>Paket rumah dan toko umumnya selesai dalam 1 hari. Untuk area luas atau banyak titik, estimasi disampaikan saat survei.</p>
+        </details>
+        <details>
+          <summary>Apakah bisa dipantau dari HP?</summary>
+          <p>Bisa. Kami bantu instalasi aplikasi dan pengaturannya sampai kamu bisa melihat live maupun rekaman dari mana saja, selama ada internet.</p>
+        </details>
+        <details>
+          <summary>Bagaimana garansinya?</summary>
+          <p>Unit bergaransi sesuai ketentuan merek, dan hasil pemasangan juga bergaransi. Jika ada kendala, hubungi kami lewat WhatsApp.</p>
+        </details>
+        <details>
+          <summary>Berapa lama rekaman tersimpan?</summary>
+          <p>Tergantung kapasitas hardisk dan jumlah kamera. Untuk paket standar biasanya cukup untuk beberapa hari hingga beberapa minggu, bisa ditambah sesuai kebutuhan.</p>
+        </details>
+        <details>
+          <summary>Bagaimana sistem pembayarannya?</summary>
+          <p>Pembayaran lewat transfer bank atau e-wallet. Detail DP dan pelunasan disepakati bersama saat penawaran.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- KONTAK -->
+    <section class="contact" id="kontak">
+      <div class="container">
+        <div class="contact-box">
+          <h2>Siap amankan rumah dan usahamu?</h2>
+          <p>Hubungi kami sekarang. Konsultasi dan survei lokasi gratis, tanpa kewajiban memesan.</p>
+          <a class="btn wa-link" href="#" target="_blank" rel="noopener">Chat via WhatsApp</a>
+          <div class="links">
+            <a href="mailto:edoosan16@gmail.com">edoosan16@gmail.com</a>
+            <a href="https://www.instagram.com/naokori16_id/" target="_blank" rel="noopener">Instagram</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">&copy; <span id="year"></span> Naokori. Dibuat dengan GitHub Pages.</div>
+  </footer>
+
+  <a class="wa-float wa-link" href="#" target="_blank" rel="noopener" aria-label="Chat WhatsApp">
+    <span>&#128172;</span> Chat WhatsApp
+  </a>
+
+  <script>
+    // ====== UBAH BAGIAN INI ======
+    // Nomor WhatsApp: awali dengan 62 (tanpa 0, tanpa +, tanpa spasi)
+    var NOMOR_WA = "6283111301626";
+    var PESAN_AWAL = "Halo, saya tertarik dengan CCTV yang dijual. Boleh konsultasi dan minta penawaran?";
+    // =============================
+
+    var linkWA = "https://wa.me/" + NOMOR_WA + "?text=" + encodeURIComponent(PESAN_AWAL);
+    document.querySelectorAll(".wa-link").forEach(function (el) { el.href = linkWA; });
+    document.getElementById("year").textContent = new Date().getFullYear();
+  
+    // ====== Slider testimoni ======
+    (function () {
+      var track = document.getElementById("testiTrack");
+      var dotsBox = document.getElementById("testiDots");
+      if (!track || !dotsBox) return;
+      var dots = [];
+      function step() { return track.querySelector(".quote").offsetWidth + 20; }
+      function maxScroll() { return track.scrollWidth - track.clientWidth; }
+      function atEnd() { return track.scrollLeft >= maxScroll() - 4; }
+      // jumlah titik = jumlah posisi geser yang benar-benar ada
+      function pages() { return Math.max(1, Math.round(maxScroll() / step()) + 1); }
+      function build() {
+        var n = pages();
+        dotsBox.innerHTML = "";
+        dots = [];
+        dotsBox.style.display = n > 1 ? "flex" : "none";
+        for (let i = 0; i < n; i++) {
+          var d = document.createElement("button");
+          d.setAttribute("aria-label", "Ulasan " + (i + 1));
+          d.addEventListener("click", function () { track.scrollTo({ left: i * step() }); });
+          dotsBox.appendChild(d);
+          dots.push(d);
+        }
+        update();
+      }
+      function update() {
+        var i = atEnd() ? dots.length - 1 : Math.round(track.scrollLeft / step());
+        i = Math.max(0, Math.min(dots.length - 1, i));
+        dots.forEach(function (d, n) { d.classList.toggle("active", n === i); });
+      }
+      track.parentNode.querySelector(".car-btn.next").addEventListener("click", function () {
+        if (atEnd()) track.scrollTo({ left: 0 }); else track.scrollBy({ left: step() });
+      });
+      track.parentNode.querySelector(".car-btn.prev").addEventListener("click", function () {
+        if (track.scrollLeft <= 4) track.scrollTo({ left: maxScroll() }); else track.scrollBy({ left: -step() });
+      });
+      track.addEventListener("scroll", update);
+      window.addEventListener("resize", build);
+      build();
+    })();
+  
+    // ====== Katalog kamera per merek ======
+    // Ubah daftar di bawah sesuai produk yang kamu jual.
+    // "foto": isi dengan alamat gambar (misal "images/hik-bullet.jpg") untuk memakai foto asli.
+    // Kalau dikosongkan, dipakai ilustrasi kamera sesuai "tipe" (bullet / dome / wifi).
+    var KATALOG = {
+      "Hikvision": [
+        {"nama": "Bullet Outdoor 2MP (Analog)", "tipe": "bullet", "foto": "", "spek": ["Resolusi 2MP (1080p)", "Lensa 2.8 mm", "Infrared hingga 20 m", "Tahan cuaca IP66", "Output analog TVI/AHD/CVI/CVBS"]},
+        {"nama": "Dome Indoor 2MP (Analog)", "tipe": "dome", "foto": "", "spek": ["Resolusi 2MP (1080p)", "Lensa 2.8 mm", "Infrared hingga 20 m", "Cocok untuk plafon dalam ruangan", "Output analog TVI/AHD/CVI/CVBS"]},
+        {"nama": "IP Bullet Outdoor 4MP (PoE)", "tipe": "bullet", "foto": "", "spek": ["Resolusi 4MP", "Lensa 2.8 mm", "Infrared hingga 30 m", "Tahan cuaca IP67", "Daya lewat kabel jaringan (PoE)"]},
+        {"nama": "Turret Outdoor 2MP (Analog)", "tipe": "dome", "foto": "", "spek": ["Resolusi 2MP (1080p)", "Lensa 2.8 mm", "Infrared hingga 20 m", "Tahan cuaca IP66", "Output analog TVI/AHD/CVI/CVBS"]},
+        {"nama": "Bullet Outdoor 5MP (Analog)", "tipe": "bullet", "foto": "", "spek": ["Resolusi 5MP", "Lensa 2.8 mm", "Infrared hingga 20 m", "Tahan cuaca IP66", "Output analog TVI/AHD/CVI/CVBS"]},
+        {"nama": "IP Dome Indoor 4MP (PoE)", "tipe": "dome", "foto": "", "spek": ["Resolusi 4MP", "Lensa 2.8 mm", "Infrared hingga 30 m", "Cocok untuk plafon dalam ruangan", "Daya lewat kabel jaringan (PoE)"]}
+      ],
+      "HiLook": [
+        {"nama": "Bullet Outdoor 2MP (Analog)", "tipe": "bullet", "foto": "", "spek": ["Resolusi 2MP (1080p)", "Lensa 2.8 mm", "Infrared hingga 20 m", "Tahan cuaca IP66", "Output analog TVI/AHD/CVI/CVBS"]},
+        {"nama": "Dome Indoor 2MP (Analog)", "tipe": "dome", "foto": "", "spek": ["Resolusi 2MP (1080p)", "Lensa 2.8 mm", "Infrared hingga 20 m", "Cocok untuk plafon dalam ruangan", "Output analog TVI/AHD/CVI/CVBS"]},
+        {"nama": "IP Bullet Outdoor 4MP (PoE)", "tipe": "bullet", "foto": "", "spek": ["Resolusi 4MP", "Lensa 2.8 mm", "Infrared hingga 30 m", "Tahan cuaca IP67", "Daya lewat kabel jaringan (PoE)"]},
+        {"nama": "Turret Outdoor 2MP (Analog)", "tipe": "dome", "foto": "", "spek": ["Resolusi 2MP (1080p)", "Lensa 2.8 mm", "Infrared hingga 20 m", "Tahan cuaca IP66", "Output analog TVI/AHD/CVI/CVBS"]},
+        {"nama": "Bullet Outdoor 5MP (Analog)", "tipe": "bullet", "foto": "", "spek": ["Resolusi 5MP", "Lensa 2.8 mm", "Infrared hingga 20 m", "Tahan cuaca IP66", "Output analog TVI/AHD/CVI/CVBS"]},
+        {"nama": "IP Dome Indoor 4MP (PoE)", "tipe": "dome", "foto": "", "spek": ["Resolusi 4MP", "Lensa 2.8 mm", "Infrared hingga 30 m", "Cocok untuk plafon dalam ruangan", "Daya lewat kabel jaringan (PoE)"]}
+      ],
+      "Meari": [
+        {"nama": "Wifi Indoor Pan/Tilt 2MP", "tipe": "wifi", "foto": "", "spek": ["Resolusi 2MP (1080p)", "Putar dan miringkan lewat HP", "Night vision hingga 10 m", "Audio dua arah", "Slot microSD, wifi 2.4 GHz"]},
+        {"nama": "Wifi Outdoor 3MP", "tipe": "bullet", "foto": "", "spek": ["Resolusi 3MP", "Tahan cuaca IP66", "Night vision hingga 20 m", "Audio dua arah", "Slot microSD, wifi 2.4 GHz"]},
+        {"nama": "Wifi Mini Indoor 2MP", "tipe": "wifi", "foto": "", "spek": ["Resolusi 2MP (1080p)", "Ukuran kecil, mudah dipasang", "Night vision hingga 8 m", "Deteksi gerak dan notifikasi", "Slot microSD, wifi 2.4 GHz"]},
+        {"nama": "Wifi Outdoor Pan/Tilt 3MP", "tipe": "wifi", "foto": "", "spek": ["Resolusi 3MP", "Outdoor, putar dan miringkan lewat HP", "Tahan cuaca IP65", "Night vision hingga 20 m", "Slot microSD, wifi 2.4 GHz"]},
+        {"nama": "Wifi Indoor 4MP", "tipe": "wifi", "foto": "", "spek": ["Resolusi 4MP", "Putar dan miringkan lewat HP", "Night vision hingga 10 m", "Audio dua arah", "Slot microSD, wifi 2.4 GHz"]},
+        {"nama": "Wifi Outdoor 4MP", "tipe": "bullet", "foto": "", "spek": ["Resolusi 4MP", "Tahan cuaca IP66", "Night vision hingga 20 m", "Audio dua arah", "Slot microSD, wifi 2.4 GHz"]}
+      ],
+      "Imou": [
+        {"nama": "Wifi Indoor Pan/Tilt 2MP", "tipe": "wifi", "foto": "", "spek": ["Resolusi 2MP (1080p)", "Putar dan miringkan lewat HP", "Night vision hingga 10 m", "Audio dua arah", "Slot microSD, wifi 2.4 GHz"]},
+        {"nama": "Wifi Outdoor 3MP", "tipe": "bullet", "foto": "", "spek": ["Resolusi 3MP", "Tahan cuaca IP66", "Night vision hingga 20 m", "Audio dua arah", "Slot microSD, wifi 2.4 GHz"]},
+        {"nama": "IP Bullet Outdoor 4MP (PoE)", "tipe": "bullet", "foto": "", "spek": ["Resolusi 4MP", "Lensa 2.8 mm", "Infrared hingga 30 m", "Tahan cuaca IP67", "Daya lewat kabel jaringan (PoE)"]},
+        {"nama": "Wifi Mini Indoor 2MP", "tipe": "wifi", "foto": "", "spek": ["Resolusi 2MP (1080p)", "Ukuran kecil, mudah dipasang", "Night vision hingga 8 m", "Deteksi gerak dan notifikasi", "Slot microSD, wifi 2.4 GHz"]},
+        {"nama": "Wifi Outdoor Pan/Tilt 3MP", "tipe": "wifi", "foto": "", "spek": ["Resolusi 3MP", "Outdoor, putar dan miringkan lewat HP", "Tahan cuaca IP65", "Night vision hingga 20 m", "Slot microSD, wifi 2.4 GHz"]},
+        {"nama": "IP Dome Indoor 4MP (PoE)", "tipe": "dome", "foto": "", "spek": ["Resolusi 4MP", "Lensa 2.8 mm", "Infrared hingga 30 m", "Cocok untuk plafon dalam ruangan", "Daya lewat kabel jaringan (PoE)"]}
+      ],
+      "EZVIZ": [
+        {"nama": "Wifi Indoor Pan/Tilt 2MP", "tipe": "wifi", "foto": "", "spek": ["Resolusi 2MP (1080p)", "Putar dan miringkan lewat HP", "Night vision hingga 10 m", "Audio dua arah", "Slot microSD, wifi 2.4 GHz"]},
+        {"nama": "Wifi Outdoor 3MP", "tipe": "bullet", "foto": "", "spek": ["Resolusi 3MP", "Tahan cuaca IP66", "Night vision hingga 20 m", "Audio dua arah", "Slot microSD, wifi 2.4 GHz"]},
+        {"nama": "Wifi Mini Indoor 2MP", "tipe": "wifi", "foto": "", "spek": ["Resolusi 2MP (1080p)", "Ukuran kecil, mudah dipasang", "Night vision hingga 8 m", "Deteksi gerak dan notifikasi", "Slot microSD, wifi 2.4 GHz"]},
+        {"nama": "Wifi Outdoor Pan/Tilt 3MP", "tipe": "wifi", "foto": "", "spek": ["Resolusi 3MP", "Outdoor, putar dan miringkan lewat HP", "Tahan cuaca IP65", "Night vision hingga 20 m", "Slot microSD, wifi 2.4 GHz"]},
+        {"nama": "Wifi Indoor 4MP", "tipe": "wifi", "foto": "", "spek": ["Resolusi 4MP", "Putar dan miringkan lewat HP", "Night vision hingga 10 m", "Audio dua arah", "Slot microSD, wifi 2.4 GHz"]},
+        {"nama": "Wifi Outdoor 4MP", "tipe": "bullet", "foto": "", "spek": ["Resolusi 4MP", "Tahan cuaca IP66", "Night vision hingga 20 m", "Audio dua arah", "Slot microSD, wifi 2.4 GHz"]}
+      ]
+    };
+
+    var GAMBAR = {
+      bullet: '<svg viewBox="0 0 200 140" aria-hidden="true"><rect x="28" y="18" width="12" height="104" rx="5" fill="#cbd5e1"/><rect x="40" y="52" width="46" height="9" fill="#94a3b8"/><rect x="62" y="44" width="92" height="36" rx="13" fill="#f8fafc" stroke="#94a3b8" stroke-width="3"/><circle cx="154" cy="62" r="15" fill="#0f172a"/><circle cx="154" cy="62" r="6" fill="#38bdf8"/><circle cx="76" cy="53" r="3" fill="#ef4444"/></svg>',
+      dome: '<svg viewBox="0 0 200 140" aria-hidden="true"><rect x="45" y="24" width="110" height="12" rx="5" fill="#cbd5e1"/><path d="M55 36 a45 45 0 0 0 90 0 z" fill="#f8fafc" stroke="#94a3b8" stroke-width="3"/><circle cx="100" cy="74" r="15" fill="#0f172a"/><circle cx="100" cy="74" r="6" fill="#38bdf8"/><circle cx="72" cy="56" r="2.5" fill="#ef4444"/></svg>',
+      wifi: '<svg viewBox="0 0 200 140" aria-hidden="true"><ellipse cx="100" cy="118" rx="48" ry="10" fill="#cbd5e1"/><rect x="82" y="92" width="36" height="26" rx="6" fill="#e2e8f0"/><circle cx="100" cy="66" r="34" fill="#f8fafc" stroke="#94a3b8" stroke-width="3"/><circle cx="100" cy="66" r="16" fill="#0f172a"/><circle cx="100" cy="66" r="7" fill="#38bdf8"/><path d="M146 30 q14 -4 24 8 M146 18 q24 -6 40 14" fill="none" stroke="#0f766e" stroke-width="4" stroke-linecap="round"/></svg>'
+    };
+
+    (function () {
+      var chips = document.querySelectorAll(".brand[data-brand]");
+      var panel = document.getElementById("brandPanel");
+      if (!panel || !chips.length) return;
+      var aktif = null;
+      var rebuild = null;
+
+      function tutup() {
+        panel.hidden = true; panel.innerHTML = ""; aktif = null; rebuild = null;
+        chips.forEach(function (c) { c.classList.remove("active"); c.setAttribute("aria-expanded", "false"); });
+      }
+
+      // slider: tombol panah + titik, jumlah titik mengikuti posisi geser yang nyata
+      function pasangSlider(track, prev, next, dotsBox) {
+        var dots = [];
+        function step() { return track.querySelector(".prod").offsetWidth + 20; }
+        function maxScroll() { return track.scrollWidth - track.clientWidth; }
+        function atEnd() { return track.scrollLeft >= maxScroll() - 4; }
+        function pages() { return Math.max(1, Math.round(maxScroll() / step()) + 1); }
+        function update() {
+          var i = atEnd() ? dots.length - 1 : Math.round(track.scrollLeft / step());
+          i = Math.max(0, Math.min(dots.length - 1, i));
+          dots.forEach(function (d, n) { d.classList.toggle("active", n === i); });
+        }
+        function build() {
+          var n = pages();
+          dotsBox.innerHTML = ""; dots = [];
+          var banyak = n > 1;
+          dotsBox.style.display = banyak ? "flex" : "none";
+          prev.style.display = next.style.display = banyak ? "" : "none";
+          for (let i = 0; i < n; i++) {
+            var d = document.createElement("button");
+            d.setAttribute("aria-label", "Produk " + (i + 1));
+            d.addEventListener("click", function () { track.scrollTo({ left: i * step() }); });
+            dotsBox.appendChild(d); dots.push(d);
+          }
+          update();
+        }
+        next.addEventListener("click", function () {
+          if (atEnd()) track.scrollTo({ left: 0 }); else track.scrollBy({ left: step() });
+        });
+        prev.addEventListener("click", function () {
+          if (track.scrollLeft <= 4) track.scrollTo({ left: maxScroll() }); else track.scrollBy({ left: -step() });
+        });
+        track.addEventListener("scroll", update);
+        build();
+        return build;
+      }
+
+      function buka(merek) {
+        var daftar = KATALOG[merek] || [];
+        panel.innerHTML = "";
+
+        var head = document.createElement("div"); head.className = "bp-head";
+        var h = document.createElement("h3"); h.textContent = "Kamera " + merek;
+        var x = document.createElement("button"); x.type = "button"; x.className = "bp-close";
+        x.setAttribute("aria-label", "Tutup"); x.innerHTML = "&times;"; x.addEventListener("click", tutup);
+        head.appendChild(h); head.appendChild(x); panel.appendChild(head);
+
+        var car = document.createElement("div"); car.className = "carousel";
+        var prev = document.createElement("button"); prev.type = "button"; prev.className = "car-btn prev";
+        prev.setAttribute("aria-label", "Produk sebelumnya"); prev.innerHTML = "&#8249;";
+        var next = document.createElement("button"); next.type = "button"; next.className = "car-btn next";
+        next.setAttribute("aria-label", "Produk berikutnya"); next.innerHTML = "&#8250;";
+        var track = document.createElement("div"); track.className = "car-track";
+
+        daftar.forEach(function (p) {
+          var card = document.createElement("div"); card.className = "prod";
+
+          var img = document.createElement("div"); img.className = "prod-img";
+          function ilustrasi() { img.innerHTML = GAMBAR[p.tipe] || GAMBAR.bullet; }
+          if (p.foto) {
+            var im = document.createElement("img"); im.src = p.foto; im.alt = merek + " " + p.nama; im.loading = "lazy";
+            im.onerror = ilustrasi; img.appendChild(im);
+          } else { ilustrasi(); }
+
+          var body = document.createElement("div"); body.className = "prod-body";
+          var tag = document.createElement("span"); tag.className = "prod-tag"; tag.textContent = merek;
+          var t = document.createElement("h4"); t.textContent = p.nama;
+          var ul = document.createElement("ul");
+          p.spek.forEach(function (sp) { var li = document.createElement("li"); li.textContent = sp; ul.appendChild(li); });
+          var a = document.createElement("a"); a.className = "btn btn-ghost"; a.target = "_blank"; a.rel = "noopener";
+          a.textContent = "Tanya Produk Ini";
+          a.href = "https://wa.me/" + NOMOR_WA + "?text=" + encodeURIComponent("Halo, saya tertarik dengan kamera " + merek + " " + p.nama + ". Boleh minta info harga dan ketersediaannya?");
+
+          body.appendChild(tag); body.appendChild(t); body.appendChild(ul); body.appendChild(a);
+          card.appendChild(img); card.appendChild(body); track.appendChild(card);
+        });
+
+        car.appendChild(prev); car.appendChild(track); car.appendChild(next);
+        panel.appendChild(car);
+        var dotsBox = document.createElement("div"); dotsBox.className = "car-dots";
+        panel.appendChild(dotsBox);
+
+        var note = document.createElement("p"); note.className = "bp-note";
+        note.textContent = "*Spesifikasi dapat berbeda tergantung seri dan model yang tersedia. Tanyakan ketersediaan dan harga lewat WhatsApp.";
+        panel.appendChild(note);
+
+        panel.hidden = false; aktif = merek;
+        rebuild = pasangSlider(track, prev, next, dotsBox);
+        chips.forEach(function (c) {
+          var on = c.getAttribute("data-brand") === merek;
+          c.classList.toggle("active", on); c.setAttribute("aria-expanded", on ? "true" : "false");
+        });
+        panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+
+      chips.forEach(function (c) {
+        c.addEventListener("click", function () {
+          var m = c.getAttribute("data-brand");
+          if (aktif === m) tutup(); else buka(m);
+        });
+      });
+      window.addEventListener("resize", function () { if (rebuild) rebuild(); });
+    })();
+  </script>
+</body>
+</html>
